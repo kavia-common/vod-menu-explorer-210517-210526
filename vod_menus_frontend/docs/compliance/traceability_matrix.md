@@ -1,0 +1,29 @@
+# Traceability Matrix
+
+- REQ-001 Categories
+  - Implementation: Sidebar (src/components/Sidebar.js), Catalog (onCategory)
+  - Tests: tests/integration/catalog_filters_audit.spec.js
+- REQ-002 Search
+  - Implementation: Search page, TopNav emits search
+  - Tests: tests/integration/search_audit.spec.js
+- REQ-003 Grid/List
+  - Implementation: Catalog.toggleView, TitleGrid/TitleList
+  - Tests: tests/integration/view_toggle.spec.js
+- REQ-004 Details Modal
+  - Implementation: DetailsModal component and Catalog open/close
+  - Tests: tests/integration/details_modal_access.spec.js (open/permission coverage indirectly)
+- REQ-005 Audit Trail
+  - Implementation: services/auditTrail.js + state/audit.js
+  - Tests: tests/unit/auditTrail.spec.js, integration tests verify READ entries
+- REQ-006 Access Control
+  - Implementation: ensureRole(['admin']), used in delete path
+  - Tests: tests/unit/accessControl.spec.js, tests/integration/details_modal_access.spec.js
+- REQ-007 Validation
+  - Implementation: services/validation.js used throughout
+  - Tests: tests/unit/validation.spec.js
+- REQ-008 Error Handling
+  - Implementation: handleError in pages
+  - Tests: covered via access denial path and validation negatives
+- REQ-009 Electronic Signature Scaffold
+  - Implementation: DetailsModal e-sign button and emitted artifact
+  - Tests: covered by existence; future E2E required for full binding

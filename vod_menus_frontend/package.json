@@ -6,10 +6,12 @@
   "type": "module",
   "scripts": {
     "start": "npm run dev",
-    "lint": "eslint '**/*.js'",
-    "lint:fix": "eslint '**/*.js' --fix",
+    "dev": "vite dev",
     "build": "vite build",
-    "dev": "vite dev"
+    "preview": "vite preview",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest",
+    "lint": "eslint '**/*.js'"
   },
   "devDependencies": {
     "vite": "5.4.8",
@@ -20,7 +22,12 @@
     "eslint-plugin-prettier": "5.2.1",
     "globals": "15.9.0",
     "lint-staged": "15.2.10",
-    "prettier": "3.3.3"
+    "prettier": "3.3.3",
+    "vitest": "^1.6.0",
+    "jsdom": "^24.0.0",
+    "@testing-library/dom": "^9.3.4",
+    "@testing-library/jest-dom": "^6.4.5",
+    "@testing-library/user-event": "^14.5.2"
   },
   "dependencies": {
     "@lightningjs/blits": "1.29.2"
@@ -29,5 +36,14 @@
     "*.js": [
       "eslint --fix"
     ]
+  },
+  "vitest": {
+    "environment": "jsdom",
+    "coverage": {
+      "provider": "v8",
+      "reportsDirectory": "./coverage",
+      "reporter": ["text", "html"],
+      "exclude": ["docs/**", "index.html"]
+    }
   }
 }

@@ -1,128 +1,46 @@
 import Blits from '@lightningjs/blits'
-
-import Loader from '../components/Loader.js'
-import Button from '../components/Button.js'
-
-const colors = ['#f5f3ff', '#ede9fe', '#ddd6fe', '#c4b5fd', '#a78bfa']
+import Sidebar from '../components/Sidebar.js'
+import TopNav from '../components/TopNav.js'
+import { theme } from '../theme/theme.js'
 
 export default Blits.Component('Home', {
-  components: {
-    Loader,
-    Button,
-  },
+  components: { Sidebar, TopNav },
   template: `
-    <Element w="1920" h="1080" color="#1e293b">
-      <Element :y.transition="$y">
-        <Element
-          src="assets/logo.png"
-          w="200"
-          h="200"
-          :scale.transition="{value: $scale, duration: 500}"
-          :rotation.transition="{value: $rotation, duration: 800}"
-          :x.transition="{value: $x, delay: 200, duration: 1200, easing: 'cubic-bezier(1,-0.64,.39,1.44)'}"
-          mount="{x: 0.5}"
-          y="320"
-          :effects="[$shader('radius', {radius: 8})]"
-        />
-        <Loader :x="1920 / 2" mount="{x: 0.5}" y="600" w="160" :alpha.transition="$loaderAlpha" :loaderColor="$color" />
-        <Element y="600" :alpha.transition="$textAlpha">
-          <Text size="80" align="center" maxwidth="1920">Hello!</Text>
-          <Text
-            size="50"
-            align="center"
-            y="120"
-            :x="1920/2"
-            maxwidth="500"
-            lineheight="64"
-            mount="{x: 0.5}"
-            color="#ffffffaa"
-            content="Let's get started with Lightning 3 & Blits"
-          />
+    <Element :w="$appW" :h="$appH" :color="$colors.background">
+      <Element w="1920" h="1080">
+        <Sidebar />
+        <Element x="320" y="0" :w="$contentW" h="1080">
+          <TopNav :title="$title" />
+          <Element y="140" :w="$contentW" h="940">
+            <Text :content="$headline" x="40" y="40" :textColor="$colors.text" fontSize="48" />
+            <Text :content="$sub" x="40" y="110" :textColor="$colorsDim" fontSize="28" />
+            <Element x="40" y="180" w="640" h="80" :color="$colors.primary" alpha="0.15" />
+            <Element x="40" y="280" w="640" h="80" :color="$colors.secondary" alpha="0.15" />
+            <Text content="Press Enter to open Catalog • Press F to Search" x="40" y="400" :textColor="$colorsDim" fontSize="26" />
+          </Element>
         </Element>
       </Element>
-        <Element w="13.5%" h="40" x="43%" y="10%" color="{top: '#763efb', bottom: '#433484'}">
-          <Button ref="btn" />
-        </Element>
     </Element>
   `,
-  state() {
+  data() {
     return {
-      /**
-       * Y-position of the entire page contents
-       * @type {number}
-       */
-      y: 0,
-      /**
-       * X-position of the logo, used to create slide in transition
-       * @type {number}
-       */
-      x: -1000,
-      /**
-       * Rotation of the logo, used to create a spinning transition
-       * @type {number}
-       */
-      rotation: 0,
-      /**
-       * Scale of the logo, used to create a zoom-in / zoom-out transition
-       * @type {number}
-       */
-      scale: 1,
-      /**
-       * Alpha of the loader component, used to create a fade-in / fade-out transition
-       * @type {number}
-       */
-      loaderAlpha: 0,
-      /**
-       * Alpha of the text, used to create a fade-in transition
-       * @type {number}
-       */
-      textAlpha: 0,
-      /**
-       * Color passed into the loader component
-       * @type {string}
-       */
-      color: '',
+      colors: theme.colorsHex,
+      colorsDim: theme.colorsHex.textDim,
+      appW: 1920, appH: 1080, contentW: 1600,
+      title: 'Home',
+      headline: 'Welcome to Ocean VOD',
+      sub: 'Browse categories, search titles, and view details with a professional, compliant experience.',
     }
   },
-  hooks: {
-    ready() {
-      this.rotateColors(200)
-
-      this.loaderAlpha = 1
-      this.x = 1920 / 2
-
-      this.$setTimeout(() => {
-        this.rotation = 720
-        this.scale = 1.5
-      }, 3000)
-
-      this.$setTimeout(() => {
-        this.scale = 1
-      }, 3000 + 300)
-
-      this.$setTimeout(() => {
-        this.y = -60
-        this.loaderAlpha = 0
-        this.scale = 1
-        this.textAlpha = 1
-      }, 6000)
+  input: {
+    enter() {
+      this.$router.to('/catalog')
     },
-    focus() {
-      this.$select('btn').$focus() // Select the button with the ref 'btn'
+    back() {
+      // remain on home; could open help in future
     },
-  },
-  methods: {
-    /**
-     * Method to rotate the colors of the loader
-     * @param {number} interval - interval in ms
-     */
-    rotateColors(interval) {
-      let i = 0
-      this.$setInterval(() => {
-        i++
-        if (i >= colors.length) i = 0
-        this.color = colors[i]
-      }, interval)
+    search() {
+      this.$router.to('/search')
     },
   },
 })

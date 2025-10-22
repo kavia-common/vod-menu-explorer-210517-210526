@@ -1,49 +1,34 @@
-# lightningjs
+# VOD Menus Frontend (LightningJS Blits)
 
-### lightningjs
+Ocean Professional themed VOD menus application with GxP controls.
 
+## Scripts
+- dev: Start app `npm run dev`
+- build: Production build `npm run build`
+- preview: Preview build `npm run preview`
+- test: Run unit/integration tests with coverage `npm run test`
+- test:watch: Run tests in watch mode `npm run test:watch`
 
-Welcome to the _lightningjs_ Lightning 3 Blits App!
+## Features
+- Routing: Home, Catalog, Search
+- Components: Sidebar, TopNav, TitleGrid, TitleList, DetailsModal, Alert, AuditTrailConsole
+- Services: validation, accessControl, auditTrail, dataSource
+- State: store (view), auth (user roles), audit (event buffer)
 
-### Getting started
+## GxP Controls
+- Audit trail with userId, isoTimestamp, actionType, entity, before/after, reason, error
+- Role-based access control guards
+- Centralized validation
+- Friendly error handling with technical logging
+- Electronic signature scaffold with binding artifact
 
-Follow the steps below to get your Lightning 3 Blits App up and running in no time.
+## Theme
+- Ocean Professional palette
+  - primary #2563EB, secondary/success #F59E0B, error #EF4444
+  - background #f9fafb, surface #ffffff, text #111827
 
-#### IDE setup
+## Development
+- Launch via `src/index.js` with Blits.Launch
+- WebGL rendering (no DOM/CSS)
 
-It is highly recommended to install the Blits [VS-code extension](https://marketplace.visualstudio.com/items?itemName=LightningJS.lightning-blits) which will give you template highlighting and improved autocompletion.
-
-#### Project setup
-
-Run the following command to install the dependencies of your App:
-
-```sh
-npm install
-```
-
-#### Build and run in development mode
-
-Run your App in development mode:
-
-```sh
-npm run dev
-```
-
-This command uses Vite to fire up a local server, with Hot Reloading support. Visit the provided link in your web browser to see the App in action.
-
-#### Build the App for production
-
-Create an optimized and minified version of your App:
-
-```sh
-npm run build
-```
-
-This will create a production version of the app in the `dist` folder.
-
-
-### Resources
-
-- [Blits documentation](https://lightningjs.io/v3-docs/blits/getting_started/intro.html) - official documentation
-- [Blits Example App](https://blits-demo.lightningjs.io/?source=true) - a great reference to learn by example
-- [Blits Components](https://lightningjs.io/blits-components.html) - off-the-shelf, basic and performant reference components
+See docs/ for architecture, compliance, traceability, and testing strategy.
